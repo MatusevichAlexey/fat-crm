@@ -84,7 +84,7 @@ end
 group :heroku do
   gem 'rails_12factor'
 end
-
+ 
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'

@@ -10,11 +10,14 @@ ENV HOME /home/app
 ADD . /home/app
 WORKDIR /home/app
 
-RUN apt-get update \
-  && apt-get install -y imagemagick firefox \
-  && apt-get autoremove -y \
-  && cp config/database.postgres.docker.yml config/database.yml \
+RUN cp config/database.postgres.docker.yml config/database.yml \
   && chown -R app:app /home/app \
   && rm -f /etc/service/nginx/down /etc/nginx/sites-enabled/default \
-  && cp .docker/nginx/sites-enabled/ffcrm.conf /etc/nginx/sites-enabled/ffcrm.conf \
-  && bundle install --deployment
+  && cp .docker/nginx/sites-enabled/ffcrm.conf /etc/nginx/sites-enabled/ffcrm.conf 
+
+
+RUN apt-get update \
+  && apt-get install -y tzdata
+
+RUN gem update --system
+RUN bundle install
